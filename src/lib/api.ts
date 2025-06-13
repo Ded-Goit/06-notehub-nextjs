@@ -59,7 +59,7 @@ export async function deleteNote(id: number): Promise<Note> {
   return res.data;
 }
 
-export async function getSingleNote(id: number): Promise<Note> {
+export async function getSingleNote(id: string): Promise<Note> {
   const res = await axios.get<Note>(`/notes/${id}`);
   return res.data;
 }
