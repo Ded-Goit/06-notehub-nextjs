@@ -7,7 +7,7 @@ import { getSingleNote } from "@/lib/api";
 import NoteDetailsClient from "./NoteDetails.client";
 
 type Props = {
-  params: Promise<{ id: number }>;
+  params: Promise<{ id: string }>;
 };
 
 const NoteDetails = async ({ params }: Props) => {
