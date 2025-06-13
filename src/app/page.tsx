@@ -1,3 +1,5 @@
+import HomePage from "@/components/Home/Home";
+
 export default function Home() {
-  return <div>Welcome to NoteHub</div>;
+  return <HomePage />;
 }
