@@ -1,28 +1,31 @@
-//old file
 import css from "./NoteForm.module.css";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import type { FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createNote } from "@/lib/api";
-import ErrorMessageText from "../ErrorMessage/ErrorMessage";
+import ErrorMessageText from "../ErrorMessage/ErrorMessage"; // МИ ОНОВИМО ЦЕЙ КОМПОНЕНТ ДАЛІ
+import { AxiosError } from "axios";
 
+// Пропс для закриття форми
 interface NoteFormProps {
   onClose: () => void;
 }
 
+// Типи для полів форми
 interface NoteFormValues {
   title: string;
-  content?: string;
+  content: string; // ← зроблено не optional для сумісності з API
   tag: "Work" | "Personal" | "Meeting" | "Shopping" | "Todo";
 }
 
+// Початкові значення форми
 const initialValues: NoteFormValues = {
   title: "",
-  content: "",
+  content: "", // ← не undefined
   tag: "Todo",
 };
 
+// Валідаційна схема Yup
 const Schema = Yup.object().shape({
   title: Yup.string()
     .required("Title is required")
@@ -40,22 +43,19 @@ const Schema = Yup.object().shape({
 export default function NoteForm({ onClose }: NoteFormProps) {
   const queryClient = useQueryClient();
 
+  // Мутація створення нотатки
   const mutation = useMutation({
     mutationFn: async (task: NoteFormValues) => createNote(task),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"], exact: false });
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
       onClose();
     },
   });
 
-  const { isPending, isError } = mutation;
+  const { isPending, isError, error } = mutation;
 
-  const handleCreateTask = (
-    values: NoteFormValues,
-    actions: FormikHelpers<NoteFormValues>
-  ) => {
-    mutation.mutate(values);
-    actions.resetForm();
+  const handleCreateTask = (values: NoteFormValues) => {
+    mutation.mutate(values); // resetForm видалено, бо onClose викликається при успіху
   };
 
   return (
@@ -102,12 +102,21 @@ export default function NoteForm({ onClose }: NoteFormProps) {
           <button
             type="submit"
             className={css.submitButton}
-            disabled={isPending ? true : false}
+            disabled={isPending}
           >
-            {!isPending ? "Create note " : "Loading"}
+            {!isPending ? "Create note" : "Loading..."}
           </button>
         </div>
-        {isError && <ErrorMessageText />}
+
+        {isError && (
+          <ErrorMessageText
+            message={
+              error instanceof AxiosError
+                ? error.response?.data?.message || "Something went wrong"
+                : "An unknown error occurred"
+            }
+          />
+        )}
       </Form>
     </Formik>
   );
