@@ -1,8 +1,22 @@
 import NoteDetailsClient from "@/components/NoteDetails/NoteDetails.client";
 import { fetchNoteById } from "@/lib/api";
 import { HydrationBoundary, dehydrate, QueryClient } from "@tanstack/react-query";
+import type { Metadata } from "next";
 
-export default async function NoteDetailsPage({ params }: { params: { id: string } }) {
+// ЦЕ ГОЛОВНЕ — правильна типізація
+type PageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  return {
+    title: `Note ${params.id}`,
+  };
+}
+
+export default async function NoteDetailsPage({ params }: PageProps) {
   const id = Number(params.id);
   const queryClient = new QueryClient();
 
