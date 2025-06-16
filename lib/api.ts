@@ -71,3 +71,8 @@ export async function fetchAllNotes(): Promise<{
   const res = await axios.get("/notes");
   return res.data;
 }
+// отримання деталей однієї нотатки за її ідентифікатором
+export async function fetchNoteById(id: number): Promise<Note> {
+  const res = await axios.get<Note>(`/notes/${id}`);
+  return res.data;
+}

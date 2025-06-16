@@ -25,6 +25,7 @@ import { deleteNote } from "@/lib/api";
 import Loading from "@/app/notes/loading";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { useState } from "react";
+import Link from "next/link";
 
 interface NoteListProps {
   notes: Note[];
@@ -63,6 +64,7 @@ export default function NoteList({ notes }: NoteListProps) {
               <p className={cssStyles.content}>{note.content}</p>
               <div className={cssStyles.footer}>
                 <span className={cssStyles.tag}>{note.tag}</span>
+                <Link href={`/notes/${note.id}`} className={cssStyles.detailsLink}>View details</Link>
                 <button
                   className={cssStyles.button}
                   onClick={() => handleDelete(note.id)}
