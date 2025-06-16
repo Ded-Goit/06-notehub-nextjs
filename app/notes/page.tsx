@@ -54,18 +54,35 @@ export default function App() {
           Create note +
         </button>
       </header>
-      {isSuccess && data.notes.length > 0 && <NoteList notes={data.notes} />}
       {isError && <ErrorMessage />}
-      {isModalOpen && <NoteModal onClose={() => setIsOpenModal(false)} />}
+      
       {isPending && (
-        <PropagateLoader
-          cssOverride={{
-            display: "block",
-            margin: "0 auto",
-            width: "320px",
-          }}
-        />
+        <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",      
+    }}
+  >
+    <PropagateLoader
+  color="#0d6efd"
+  size={11}
+  speedMultiplier={2}
+/>
+  </div>
       )}
+      {isSuccess && data.notes.length > 0 && <NoteList notes={data.notes} />}
+
+       {isSuccess && data.notes.length === 0 && (
+      <p style={{
+    textAlign: "center",
+    fontSize: "1.2rem",
+    marginTop: "40px",
+    color: "#888",
+  }}>No notes found for this search.</p>
+    )}
+      
+      {isModalOpen && <NoteModal onClose={() => setIsOpenModal(false)} />}
     </div>
   );
 }
