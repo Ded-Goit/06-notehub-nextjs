@@ -14,17 +14,21 @@ NoteHub is a multi-page application for creating, viewing, and managing notes. B
 - 📦 Caching and state via **TanStack Query**
 
 ## 🗂 Project structure
+           06-notehub-nextjs/
+           ├── 📁app/         # App Router: routing, pages, layout, loading/error
+           ├── 📁components/  # All UI components
+           ├── 📁lib/         # API logic
+           ├── 📁public/      # Static files (favicon, images, screenshots)
+           ├── 📁types/       # Common TypeScript types (Note interfaces, etc.)
+           ├── 📄.gitignore        # List files/folders that Git ignores
+           ├── 📄.prettierrс       # Prettier configuration  
+           ├── 📄README.md         # Project documentation and setup instructions.
+           ├── 📄eslint.config.mjs # ESLint configuration for code quality checking
+           ├── 📄next.config.ts    # Next.js configuration
+           ├── 📄package-lock.json # Automatically generated dependency file
+           ├── 📄package.json      # Main dependency, script, and project description file
+           └── 📄tsconfig.json     # Configuration for TypeScript compiler
 
-06-notehub-nextjs/
-├── app/ # App Router (pages, layout)
-├── components/ # All UI components
-├── lib/ # API queries
-├── types/ # TypeScript types
-├── public/ # Statics
-├── styles/ # CSS
-├── next.config.ts # Next.js configuration
-├── package.json # Dependencies
-└── tsconfig.json # TypeScript configuration
 
 ## ⚙️ Technologies
 
@@ -70,17 +74,5 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-📁 Examples
-Page URL
-Home /
-Notes /notes
-Note details /notes/[id]
-
-🙌 Author
-👤 Andriy Romanov
-GitHub @Ded-Goit
-
 📄 License
 This project is licensed under the MIT License.
-
-
