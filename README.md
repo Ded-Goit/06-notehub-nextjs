@@ -1,7 +1,40 @@
-#### HW-1 next.js
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#### # 📝 NoteHub
 
-## Getting Started
+NoteHub is a multi-page application for creating, viewing, and managing notes. Built using **Next.js App Router**, **TypeScript**, **React Query (TanStack)**, **Axios**, and **CSS Modules**.
+
+![NoteHub Screenshot](https://github.com/Ded-Goit/06-notehub-nextjs/blob/main/public/note_hub.png)
+
+## 🚀 Features
+
+- 🔍 Search notes
+- 🧠 View details (SSR/CSR)
+- ➕ Create and edit notes
+- 🗑️ Delete notes
+- 🌐 Built with Server-Side Rendering (SSR) support
+- 📦 Caching and state via **TanStack Query**
+
+## 🗂 Project structure
+
+06-notehub-nextjs/
+├── app/ # App Router (pages, layout)
+├── components/ # All UI components
+├── lib/ # API queries
+├── types/ # TypeScript types
+├── public/ # Statics
+├── styles/ # CSS
+├── next.config.ts # Next.js configuration
+├── package.json # Dependencies
+└── tsconfig.json # TypeScript configuration
+
+## ⚙️ Technologies
+
+- [Next.js 14+](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [TanStack Query](https://tanstack.com/query/latest)
+- [Axios](https://axios-http.com/)
+- [CSS Modules](https://github.com/css-modules/css-modules)
+
+## 📦 Getting Started
 
 First, run the development server:
 
@@ -35,3 +68,19 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+📁 Examples
+Page URL
+Home /
+Notes /notes
+Note details /notes/[id]
+
+🙌 Author
+👤 Andriy Romanov
+GitHub @Ded-Goit
+
+📄 License
+This project is licensed under the MIT License.
+
+
