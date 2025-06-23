@@ -9,23 +9,42 @@ export default function NoteDetailsClient() {
   const params = useParams();
   const id = Number(params.id);
 
-  const { data: note, isLoading, error } = useQuery({
+  const {
+    data: note,
+    isLoading,
+    error,
+    isSuccess,
+    isError,
+  } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
   });
 
-  if (isLoading) return <p>Loading, please wait...</p>;
-  if (error || !note) return <p>Something went wrong.</p>;
+  if (isError) throw error;
 
   return (
-    <div className={css.container}>
-      <div className={css.item}>
-        <div className={css.header}>
-          <h2>{note.title}</h2>
-          <button className={css.editBtn}>Edit note</button>
+    <div>
+      {isLoading && <p className={css.loadMessage}>Loading, please wait...</p>}
+      {!error && !note && !isLoading && (
+        <p className={css.errorMessage}>Not found</p>
+      )}
+      {note && isSuccess && (
+        <div className={css.container}>
+          <div className={css.item}>
+            <div className={css.header}>
+              <h2>{note.title}</h2>
+              <button className={css.editBtn}>Edit note</button>
+            </div>
+            <p className={css.content}>{note.content}</p>
+            <p className={css.date}>
+              {note.updatedAt
+                ? `Updated at: ${note.updatedAt}`
+                : `Created at: ${note.createdAt}`}
+            </p>
+          </div>
         </div>
-        <p className={css.content}>{note.content}</p>
-      </div>
+      )}
     </div>
   );
 }
