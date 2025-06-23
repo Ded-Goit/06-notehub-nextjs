@@ -3,7 +3,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import css from "./NotesPage.module.css";
 import NoteList from "@/components/NoteList/NoteList";
-import { fetchNotesWithSearch } from "@/lib/api";
+import { fetchNotes } from "@/lib/api";
 import { useEffect, useState } from "react";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteModal from "@/components/NoteModal/NoteModal";
@@ -34,7 +34,7 @@ export default function NotesClient({
 
   const { data, isSuccess, isPending, isError } = useQuery({
     queryKey: ["notes", debouncedText, currentPage],
-    queryFn: () => fetchNotesWithSearch(debouncedText, currentPage),
+    queryFn: () => fetchNotes(debouncedText, currentPage),
     placeholderData: keepPreviousData,
     initialData:
       debouncedText === query && currentPage === page ? initialData : undefined,
