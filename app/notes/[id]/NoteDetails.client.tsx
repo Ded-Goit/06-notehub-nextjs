@@ -7,7 +7,10 @@ import css from "./NoteDetails.module.css";
 
 export default function NoteDetailsClient() {
   const params = useParams();
-  const id = Number(params.id);
+  const idParam = params?.id;
+  const id = Number(idParam);
+
+  const isValidId = !isNaN(id) && id > 0;
 
   const {
     data: note,
@@ -18,14 +21,23 @@ export default function NoteDetailsClient() {
   } = useQuery({
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
+    enabled: isValidId, // виконується лише якщо id валідний
     refetchOnMount: false,
   });
+
+  if (!isValidId) {
+    return (
+      <p className={css.errorMessage}>
+        Invalid note ID: <code>{String(idParam)}</code>
+      </p>
+    );
+  }
 
   if (isError) throw error;
 
   const formatDate = (isoDate: string): string => {
     const date = new Date(isoDate);
-    return date.toLocaleString("en-UA", {
+    return date.toLocaleString("uk-UA", {
       day: "2-digit",
       month: "long",
       year: "numeric",
@@ -33,12 +45,15 @@ export default function NoteDetailsClient() {
       minute: "2-digit",
     });
   };
+
   return (
     <div>
       {isLoading && <p className={css.loadMessage}>Loading, please wait...</p>}
+
       {!error && !note && !isLoading && (
-        <p className={css.errorMessage}>Not found</p>
+        <p className={css.errorMessage}>Note not found.</p>
       )}
+
       {note && isSuccess && (
         <div className={css.container}>
           <div className={css.item}>
