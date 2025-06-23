@@ -38,7 +38,6 @@ export default function NotesClient({
     placeholderData: keepPreviousData,
     initialData:
       debouncedText === query && currentPage === page ? initialData : undefined,
-    refetchOnMount: false,
   });
 
   useEffect(() => {
