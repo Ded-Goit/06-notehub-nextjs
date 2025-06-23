@@ -23,6 +23,16 @@ export default function NoteDetailsClient() {
 
   if (isError) throw error;
 
+  const formatDate = (isoDate: string): string => {
+    const date = new Date(isoDate);
+    return date.toLocaleString("en-UA", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
   return (
     <div>
       {isLoading && <p className={css.loadMessage}>Loading, please wait...</p>}
@@ -39,8 +49,8 @@ export default function NoteDetailsClient() {
             <p className={css.content}>{note.content}</p>
             <p className={css.date}>
               {note.updatedAt
-                ? `Updated at: ${note.updatedAt}`
-                : `Created at: ${note.createdAt}`}
+                ? `Updated at: ${formatDate(note.updatedAt)}`
+                : `Created at: ${formatDate(note.createdAt)}`}
             </p>
           </div>
         </div>
