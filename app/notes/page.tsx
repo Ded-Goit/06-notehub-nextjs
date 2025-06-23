@@ -1,4 +1,4 @@
-import { fetchNotesWithSearch } from "@/lib/api";
+import { fetchNotes } from "@/lib/api";
 import {
   QueryClient,
   HydrationBoundary,
@@ -15,7 +15,7 @@ export default async function Notes() {
 
   await queryClient.prefetchQuery({
     queryKey: ["notes", initialQuery, initialPage],
-    queryFn: () => fetchNotesWithSearch(initialQuery, initialPage),
+    queryFn: () => fetchNotes(initialQuery, initialPage),
   });
 
   const initialData = queryClient.getQueryData([

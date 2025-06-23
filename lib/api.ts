@@ -10,30 +10,38 @@ if (!API_KEY) throw new Error("API token is not defined");
 axios.defaults.baseURL = `https://notehub-public.goit.study/api`;
 axios.defaults.headers.common["Authorization"] = `Bearer ${API_KEY}`;
 
-// Тип тегів — витягуємо з Note, щоб не дублювати
-export type NoteTag = Note["tag"];
-
-// Тип для створення нотатки — беремо з Note
-export type CreateNoteValues = Omit<Note, "id" | "createdAt">;
-
 // Відповідь з пагінацією
 interface NotesResponse {
   notes: Note[];
   totalPages: number;
 }
 
-// Отримати нотатки з пошуком і пагінацією
-export async function fetchNotesWithSearch(
+export interface CreateNoteValues {
+  title: string;
+  content?: string;
+  tag: "Work" | "Personal" | "Meeting" | "Shopping" | "Todo";
+}
+
+interface SearchParams {
+  page: number;
+  perPage: number;
+  search?: string;
+}
+
+// Отримати нотатки
+export async function fetchNotes(
   search: string,
   page: number
 ): Promise<NotesResponse> {
-  const params = {
-    page,
-    perPage: 12,
-    ...(search ? { search } : {}),
-  };
+  const perPage = 12;
+  const params: SearchParams = { page, perPage };
 
-  const res = await axios.get<NotesResponse>("/notes", { params });
+  if (search) params.search = search;
+
+  const res = await axios.get<NotesResponse>("/notes", {
+    params,
+  });
+
   return res.data;
 }
 
@@ -48,6 +56,7 @@ export async function createNote({
     content,
     tag,
   });
+
   return res.data;
 }
 
@@ -57,20 +66,6 @@ export async function deleteNote(id: number): Promise<Note> {
   return res.data;
 }
 
-// Отримати одну нотатку
-export async function getSingleNote(id: string): Promise<Note> {
-  const res = await axios.get<Note>(`/notes/${id}`);
-  return res.data;
-}
-
-// Отримати всі нотатки без фільтрів (опційно)
-export async function fetchAllNotes(): Promise<{
-  notes: Note[];
-  total: number;
-}> {
-  const res = await axios.get("/notes");
-  return res.data;
-}
 // отримання деталей однієї нотатки за її ідентифікатором
 export async function fetchNoteById(id: number): Promise<Note> {
   const res = await axios.get<Note>(`/notes/${id}`);
