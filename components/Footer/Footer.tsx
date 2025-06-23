@@ -9,7 +9,7 @@ const Footer = () => {
           <p>Developer: DED</p>
           <p>
             Contact us:
-            <a href="https://github.com/Ded-Goit"> Andriy Romanov</a>
+            <a href="mailto:mgm.agro04@gmail.com"> Andrii Romanov</a>
           </p>
         </div>
       </div>
