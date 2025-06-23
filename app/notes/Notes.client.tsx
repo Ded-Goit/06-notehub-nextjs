@@ -1,7 +1,7 @@
 "use client";
 
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import css from "./page.module.css";
+import css from "./NotesPage.module.css";
 import NoteList from "@/components/NoteList/NoteList";
 import { fetchNotesWithSearch } from "@/lib/api";
 import { useEffect, useState } from "react";
